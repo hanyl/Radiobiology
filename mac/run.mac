@@ -1,0 +1,21 @@
+#initialize run before stacking and primary generator actions
+/run/initialize
+
+/output/filename Radiobiology
+
+/tracking/verbose 0
+
+/score/create/boxMesh Mesh_water
+/score/mesh/boxSize 20 20 3. cm
+/score/mesh/nBin 50 50 10
+/score/mesh/translate/xyz 0 0 12.5 cm
+/score/quantity/energyDeposit eDep_water
+/score/close
+
+
+#/score/list
+
+/run/beamOn 1
+
+#/score/drawProjection Mesh_1 eDep
+/score/dumpQuantityToFile Mesh_amorph eDep_water ED_Water.dat
