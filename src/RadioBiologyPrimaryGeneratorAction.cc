@@ -68,62 +68,6 @@ RadioBiologyPrimaryGeneratorAction::~RadioBiologyPrimaryGeneratorAction(){
 
 void RadioBiologyPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent){
 
-  //G4int evtID = anEvent->GetEventID();
-
-  //G4double AirBox_thick = this->AirBoxThick;
-
-  //G4double x0=0.,y0=0.; // mm
-  //G4double sigmaXY = this->sigmaUserXY; // mm
-  //G4double sigmaZ = this->sigmaUserZ; // mm
-  //G4double deltaE = this->DeltaE;
-  //G4double Energy = this->primaryEnergy;  // GeV
-  //G4double px0 = 0, py0 = 0;
-  //G4double sigmaPxy = this->sigmaUserPxy; // radian
-  //G4double z0 = -5.0 * sigmaZ;
-  //G4double time = 0;
-
-  ////G4cout<< "The energy is "<<Energy<<G4endl;
-  ////G4cout<< "The AirBox thick is "<<AirBox_thick<<G4endl;
-  ////G4cout<< "The sigmaXY is "<<sigmaXY<<G4endl;
-  ////G4cout<< "The sigmaZ is "<<sigmaZ<<G4endl;
-  ////G4cout<< "The sigmaPxy is "<<sigmaPxy<<G4endl;
-  ////G4cout<< "The deltaE is "<<deltaE<<G4endl;
-
-  //G4double primary_energy = G4RandGauss::shoot(Energy,Energy * deltaE);
-  //G4double gamma=primary_energy;
-  //G4double x = G4RandGauss::shoot(x0,sigmaXY);
-  //G4double y = G4RandGauss::shoot(y0,sigmaXY);
-  //G4double z = G4RandGauss::shoot(z0,sigmaZ);
-  //time = (z-z0)/CLHEP::c_light;
-
-  //G4double px = G4RandGauss::shoot(px0,sigmaPxy) * primary_energy; 
-  //G4double py = G4RandGauss::shoot(py0,sigmaPxy) * primary_energy; 
-  //G4double pz = 0; 
-
-  //G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
-  //analysisManager->FillNtupleDColumn(0,x/CLHEP::millimeter);
-  //analysisManager->FillNtupleDColumn(1,y/CLHEP::millimeter);
-  //analysisManager->FillNtupleDColumn(2,z/CLHEP::millimeter);
-  //analysisManager->FillNtupleDColumn(3,px);
-  //analysisManager->FillNtupleDColumn(4,py);
-  //analysisManager->FillNtupleDColumn(5,pz);
-  //analysisManager->FillNtupleDColumn(6,primary_energy/CLHEP::GeV);
-  //analysisManager->FillNtupleIColumn(7,0);
-  //analysisManager->FillNtupleIColumn(8,evtID);
-  //analysisManager->FillNtupleDColumn(9,time/(CLHEP::millimeter/CLHEP::c_light));
-  //analysisManager->AddNtupleRow();
-
-  ////fParticleGun->SetParticlePosition(position_emission);
-  ////fParticleGun->SetParticleEnergy(kineticEnergy);
-  ////fParticleGun->SetParticleMomentumDirection(direction_emission);
-  ////fParticleGun->SetParticleTime(time);
-  //////fParticleGun->SetParticleMomentum(momentum_emission);
-  ////fParticleGun->GeneratePrimaryVertex(anEvent);
-
-
-  ////HEPEvt->SetParticlePosition(G4ThreeVector(0.*cm,0.*cm,0.*cm));
-  ////HEPEvt->GeneratePrimaryVertex(anEvent);
-
   G4ParticleDefinition* particle  = G4ParticleTable::GetParticleTable()->FindParticle("e-");
   fParticleGun->SetParticleDefinition(particle);
 
@@ -132,16 +76,16 @@ void RadioBiologyPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent){
   G4double m_e = 0.511e-3 * CLHEP::GeV; // GeV
 
   std::string line;
-  std::ifstream ifile0("beam_prae_radiobiology.dat.200",std::ios_base::in);
+  std::ifstream ifile0("beam_prae_radiobiology.dat.3000",std::ios_base::in);
   while(getline(ifile0,line)){
     if (!line.length() || line[0] == '#')
       continue;
     std::istringstream iss(line);
     iss>>energy>>x>>y>>z>>xp>>yp;
 
-    x = x * 1.0e-6 * CLHEP::meter;   // um to micron meter
-    y = y * 1.0e-6 * CLHEP::meter;   // um to micron meter
-    z = z * 1.0e-6 * CLHEP::meter; // um to micron meter
+    x = x * 1.0e-6 * CLHEP::meter;   // um to meter
+    y = y * 1.0e-6 * CLHEP::meter;   // um to meter
+    z = z * 1.0e-6 * CLHEP::meter; // um to meter
 
     xp *= 1.0e-6;  // milliradian to micron radian
     yp *= 1.0e-6;  // milliradian to micron radian
@@ -150,6 +94,8 @@ void RadioBiologyPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent){
 
     p = sqrt(energy*energy - m_e*m_e);
 
+    px = p *xp;
+    py = p *yp;
     pz = p * sqrt(1 - xp*xp -yp*yp);
 
     G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();

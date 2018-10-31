@@ -1,0 +1,25 @@
+#initialize run before stacking and primary generator actions
+/run/initialize
+
+/output/filename Radiobiology
+
+/tracking/verbose 0
+
+/score/create/boxMesh Mesh_water
+/score/mesh/boxSize 0.5 0.5 15 cm
+/score/mesh/nBin 50 50 300
+
+#### 3cm water: 187.5 : -200+1+10+1.5
+#/score/mesh/translate/xyz 0 0 -187.5 cm   #### -2 meter shift + 1 cm for bunch, 10 cm Air + halfo 3 cm Water 
+#### 30 cm water -200+1+10+30/2
+/score/mesh/translate/xyz 0 0 -174 cm
+/score/quantity/energyDeposit eDep_water
+/score/close
+
+
+#/score/list
+
+/run/beamOn 1
+
+#/score/drawProjection Mesh_1 eDep
+/score/dumpQuantityToFile Mesh_water eDep_water ED_Water.dat
