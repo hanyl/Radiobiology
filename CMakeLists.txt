@@ -2,7 +2,7 @@
 # Setup the project
 #
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
-project(injector)
+project(radiobiology)
 
 #----------------------------------------------------------------------------
 # Find Geant4 package, activating all available UI and Vis drivers by default
@@ -54,19 +54,19 @@ endforeach()
 #----------------------------------------------------------------------------
 # Add the executable, and link it to the Geant4 libraries
 #
-add_executable(injector injector.cc ${sources} ${headers} ${sources_Fot} ${headers_Fot})
-target_link_libraries(injector ${Geant4_LIBRARIES})
+add_executable(radiobiology radiobiology.cc ${sources} ${headers} ${sources_Fot} ${headers_Fot})
+target_link_libraries(radiobiology ${Geant4_LIBRARIES})
 
 
 #----------------------------------------------------------------------------
 # For internal Geant4 use - but has no effect if you build this
 # example standalone
 #
-add_custom_target(injector_custom DEPENDS injector)
+add_custom_target(radiobiology_custom DEPENDS radiobiology)
 
 #----------------------------------------------------------------------------
 # Install the executable to 'bin' directory under CMAKE_INSTALL_PREFIX
 #
-install(TARGETS injector DESTINATION bin)
+install(TARGETS radiobiology DESTINATION bin)
 
 
