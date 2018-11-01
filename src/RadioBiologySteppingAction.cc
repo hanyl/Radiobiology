@@ -86,9 +86,9 @@ void RadioBiologySteppingAction::UserSteppingAction(const G4Step* step)
      time = point2->GetGlobalTime(); // since the event is created
      //time = point2->GetLocalTime();    // since the track is created
 
-     analysisManager->FillNtupleDColumn(0,fPosition.x()/CLHEP::centimeter);
-     analysisManager->FillNtupleDColumn(1,fPosition.y()/CLHEP::centimeter);
-     analysisManager->FillNtupleDColumn(2,fPosition.z()/CLHEP::centimeter);
+     analysisManager->FillNtupleDColumn(0,fPosition.x()/CLHEP::millimeter);
+     analysisManager->FillNtupleDColumn(1,fPosition.y()/CLHEP::millimeter);
+     analysisManager->FillNtupleDColumn(2,fPosition.z()/CLHEP::millimeter);
      analysisManager->FillNtupleDColumn(3,fMomentum.x()/CLHEP::GeV);
      analysisManager->FillNtupleDColumn(4,fMomentum.y()/CLHEP::GeV);
      analysisManager->FillNtupleDColumn(5,fMomentum.z()/CLHEP::GeV);
@@ -111,9 +111,9 @@ void RadioBiologySteppingAction::UserSteppingAction(const G4Step* step)
        time = point2->GetGlobalTime(); // since the event is created
        //time = point2->GetLocalTime();    // since the track is created
 
-       analysisManager->FillNtupleDColumn(0,fPosition.x()/CLHEP::centimeter);
-       analysisManager->FillNtupleDColumn(1,fPosition.y()/CLHEP::centimeter);
-       analysisManager->FillNtupleDColumn(2,fPosition.z()/CLHEP::centimeter);
+       analysisManager->FillNtupleDColumn(0,fPosition.x()/CLHEP::millimeter);
+       analysisManager->FillNtupleDColumn(1,fPosition.y()/CLHEP::millimeter);
+       analysisManager->FillNtupleDColumn(2,fPosition.z()/CLHEP::millimeter);
        analysisManager->FillNtupleDColumn(3,fMomentum.x()/CLHEP::GeV);
        analysisManager->FillNtupleDColumn(4,fMomentum.y()/CLHEP::GeV);
        analysisManager->FillNtupleDColumn(5,fMomentum.z()/CLHEP::GeV);
